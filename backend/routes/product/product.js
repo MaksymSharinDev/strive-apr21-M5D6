@@ -7,6 +7,7 @@ import validateProducts from "./validation.js"
 import {dirname, join} from "path";
 import {fileURLToPath} from "url";
 import fs from "fs";
+import { parseFile, uploadFile } from "../../utils/upload/index.js";
 
 
 const productsJsonPath = join(dirname(fileURLToPath(import.meta.url)), "product.json")
@@ -113,5 +114,66 @@ productsRouter.delete("/:id", async(req, res, next) => {
         next(error)
     }
 })
+
+productsRouter.post(
+    "/:id/imageUrl",
+    parseFile.single("imageUrl"),
+    uploadFile,
+    async (req, res, next) => {
+      try {
+        const products = await readProducts()
+  
+        const prodIndex = products.findIndex(
+          (prod) => prod._id === req.params.id
+        );
+
+        if (prodIndex !== -1) {
+            let foundObject = products[prodIndex]
+            console.log(foundObject)
+            foundObject = { ...foundObject, _id : req.params.id, imageUrl: req.file, updatedAt: new Date(), }
+            products[prodIndex] = foundObject
+            await writeProduct(products)
+            res.send(foundObject)
+        } else {
+            next(createError(404, `Product with id ${req.params.id} not found!`))
+        }
+    } catch (error) {
+        next(error)
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //     if (!prodIndex == -1) {
+    //       res
+    //         .status(404)
+    //         .send({ message: `blog with ${req.params.id} is not found!` });
+    //     }
+    //     const previousblogData = fileAsJSONArray[blogIndex];
+    //     const changedblog = {
+    //       ...previousblogData,
+    //       cover: req.file,
+    //       updatedAt: new Date(),
+    //       id: req.params.id,
+    //     };
+    //     fileAsJSONArray[blogIndex] = changedblog;
+  
+    //     fs.writeFileSync(blogsFilePath, JSON.stringify(fileAsJSONArray));
+    //     res.send(changedblog);
+    //   } catch (error) {
+    //     res.send(500).send({ message: error.message });
+    //   }
+    
+});
 
 export default productsRouter
