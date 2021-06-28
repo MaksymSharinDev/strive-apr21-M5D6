@@ -1,15 +1,12 @@
 import createError from "http-errors";
-
 import express from "express";
-
 import path from "path";
-
 import cookieParser from "cookie-parser";
-
 import logger from "morgan";
-
 import reviewRouter from "./routes/review/review.js";
-
+import listEndpoints from "express-list-endpoints"
+import cors from "cors"
+const port = 3001
 const app = express();
 
 
@@ -35,5 +32,13 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+
+console.table(listEndpoints(app))
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`)
+})
 
 export default app;
