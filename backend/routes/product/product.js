@@ -14,8 +14,7 @@ const readProducts = () => {
     const content = fs.readFileSync(productsJsonPath, 'utf8')
     return JSON.parse(content)
 }
-const writeProduct = (content) =>
-    fs.writeFileSync(productsJsonPath, JSON.stringify(content))
+const writeProduct = (content) => fs.writeFileSync(productsJsonPath, JSON.stringify(content))
 
 
 const productsRouter = express.Router()
@@ -73,12 +72,12 @@ productsRouter.post("/", validateProducts, async(req, res, next) => {
             await writeProduct(products)
             res.status(201).send({ _id: product._id })
         } else {
-            next(createError(400, { errorsList: errors }))
+            res.status(400).send({ errorsList: errors })
         }
     } catch (error) {
         next(error)
     }
-})
+},)
 
 // 4. PUT SINGLE PRODUCT http://localhost:3000/products/:id
 productsRouter.put("/:id", async(req, res, next) => {

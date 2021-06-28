@@ -3,7 +3,8 @@ import fs from 'fs'
 import {fileURLToPath} from 'url'
 import {dirname, join} from 'path'
 import uniqid from 'uniqid'
-
+import validateReviews from './validation.js'
+import {validationResult} from "express-validator";
 const router = express.Router();
 
 const reviewsJsonPath = join(dirname(fileURLToPath(import.meta.url)), "reviews.json")
@@ -28,15 +29,20 @@ router.get("/:id", (req, res) => {
 })
 
 // 3.
-router.post("/", (req, res) => {
-  const newReview = {...req.body, _id: uniqid(), createdAt: new Date()}
+router.post("/", validateReviews , (req, res) => {
 
-  const reviews = getReviewsArray()
+  const errors = validationResult(req)
+  if (errors.isEmpty()) {
+    const newReview = {...req.body, _id: uniqid(), createdAt: new Date()}
+    const reviews = getReviewsArray()
 
-  reviews.push(newReview)
+    reviews.push(newReview)
 
-  writeReviews(reviews)
-  res.status(201).send({_id: newReview._id})
+    writeReviews(reviews)
+    res.status(201).send({_id: newReview._id})
+  }else{
+    res.status(400).send({ errorsList: errors })
+  }
 })
 
 // 4.

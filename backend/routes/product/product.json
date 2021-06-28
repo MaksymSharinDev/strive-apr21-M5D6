@@ -1,13 +1,1 @@
-[
-  {
-    "_id": "5d318e1a8541744830bef139",
-    "name": "3310",
-    "description": "something longer",
-    "brand": "nokia",
-    "imageUrl": "https:drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80",
-    "price": 100,
-    "category": "smartphones",
-    "createdAt": "2019-07-19T09:32:10.535Z",
-    "updatedAt": "2019-07-19T09:32:10.535Z"
-  }
-]
+[{"_id":"5d318e1a8541744830bef139","name":"3310","description":"something longer","brand":"nokia","imageUrl":"https:drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80","price":100,"category":"smartphones","createdAt":"2019-07-19T09:32:10.535Z","updatedAt":"2019-07-19T09:32:10.535Z"},{"brand":"AAA","imageUrl":"https:drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80","price":100,"_id":"10tl1bkzkqgld1z6","createdAt":"2021-06-28T12:22:42.497Z"},{"brand":"AAA","imageUrl":"https:drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80","price":100,"_id":"10tl1blykqglgd9i","createdAt":"2021-06-28T12:25:17.094Z"},{"brand":"AAA","imageUrl":"https:drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80","price":100,"_id":"10tl1bppkqglh7qi","createdAt":"2021-06-28T12:25:56.585Z"},{"brand":"AAA","imageUrl":"https:drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80","price":100,"_id":"10tl1bswkqglkrr9","createdAt":"2021-06-28T12:28:42.501Z"},{"_id":"10tl1buokqgll77a","createdAt":"2021-06-28T12:29:02.517Z"},{"_id":"10tl1c23kqglxmcm","createdAt":"2021-06-28T12:38:42.021Z"}]
