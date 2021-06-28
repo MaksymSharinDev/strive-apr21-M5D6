@@ -5,13 +5,12 @@ import {fileURLToPath} from "url"
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
+import cors from "cors"
 import cookieParser from "cookie-parser"
 import listEndpoints from "express-list-endpoints"
+
 import reviewRouter from "./routes/review/review.js"
 import productRouter from "./routes/product/product.js"
-
-import listEndpoints from "express-list-endpoints"
-import cors from "cors"
 
 const port = 3001
 const app = express();
