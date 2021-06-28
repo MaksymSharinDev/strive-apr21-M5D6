@@ -34,7 +34,7 @@ productsRouter.get("/", async(req, res, next) => {
 // 2. GET SINGLE PRODUCT http://localhost:3001/product/:id
 productsRouter.get("/:id", async(req, res, next) => {
     try {
-        console.log(`GETTING PRODUCT BY ID ${req.params.id}`)
+        console.log(`GETTING PRODUCT: ID ${req.params.id}`)
         const products = await readProducts()
         const product = products.find(product => product._id === req.params.id)
         if (product) {
@@ -83,7 +83,7 @@ productsRouter.post("/", validateProducts, async(req, res, next) => {
 // 4. PUT SINGLE PRODUCT http://localhost:3001/product/:id
 productsRouter.put("/:id", async(req, res, next) => {
     try {
-        console.log("PUTTING PRODUCT")
+        console.log(`PUTTING PRODUCT: ID ${req.params.id}`)
         const products = await readProducts()
         const foundIndex = products.findIndex((obj) => obj._id === req.params.id)
         console.log(foundIndex)
@@ -105,7 +105,7 @@ productsRouter.put("/:id", async(req, res, next) => {
 // 5. DELETE http://localhost:3001/product/:id
 productsRouter.delete("/:id", async(req, res, next) => {
     try {
-        console.log("DELETING PRODUCT")
+        console.log(`DELETING PRODUCT: ID ${req.params.id}`)
         const products = await readProducts()
         const remainingProducts = products.filter(product => product._id !== req.params.id)
         await writeProduct(remainingProducts)

@@ -17,7 +17,7 @@ const categoriesRouter = express.Router()
 categoriesRouter.get("/", async(req, res, next) => {
     try {
         let category = req.query.category;
-        console.log(`GETTING BY ${category}`)
+        console.log(`GETTING PRODUCT BY CATEGORY: ${category}`)
         const products = await readProducts()
         const productsByCategory = await products.filter(product => (product.category === category))
         if (productsByCategory) {
