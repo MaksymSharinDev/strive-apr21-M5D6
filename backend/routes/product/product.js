@@ -20,25 +20,25 @@ const writeProduct = (content) => fs.writeFileSync(productsJsonPath, JSON.string
 
 const productsRouter = express.Router()
 
-// 1. GET PRODUCTS http://localhost:3000/products
-productsRouter.get("/", async(req, res, next) => { // could use exampleMiddleware as param here
+// 1. GET PRODUCTS http://localhost:3001/product
+productsRouter.get("/", async(req, res, next) => {
     try {
-        console.log("getting posts")
-        const posts = await readProducts() //--> readJSON(blogPostsJSONPath)
-        res.send(posts)
+        console.log("GETTING PRODUCTS")
+        const products = await readProducts()
+        res.send(products)
     } catch (error) {
         next(error)
     }
 })
 
-// 2. GET SINGLE PRODUCT http://localhost:3000/products/:id
+// 2. GET SINGLE PRODUCT http://localhost:3001/product/:id
 productsRouter.get("/:id", async(req, res, next) => {
     try {
-        console.log(`getting post by id ${req.params.id}`)
-        const posts = await readProducts() //--> readJSON(blogPostsJSONPath)
-        const post = posts.find(post => post._id === req.params.id)
-        if (post) {
-            res.send(post)
+        console.log(`GETTING PRODUCT: ID ${req.params.id}`)
+        const products = await readProducts()
+        const product = products.find(product => product._id === req.params.id)
+        if (product) {
+            res.send(product)
         } else {
             next(createError(404, `Product with id ${req.params.userId} not found!`))
         }
@@ -47,7 +47,7 @@ productsRouter.get("/:id", async(req, res, next) => {
     }
 })
 
-// 3. POST NEW PRODUCT http://localhost:3000/products
+// 3. POST NEW PRODUCT http://localhost:3001/product
 productsRouter.post("/", validateProducts, async(req, res, next) => {
     try {
         console.log("POSTING PRODUCT")
@@ -80,10 +80,10 @@ productsRouter.post("/", validateProducts, async(req, res, next) => {
     }
 },)
 
-// 4. PUT SINGLE PRODUCT http://localhost:3000/products/:id
+// 4. PUT SINGLE PRODUCT http://localhost:3001/product/:id
 productsRouter.put("/:id", async(req, res, next) => {
     try {
-        console.log("PUTTING PRODUCT")
+        console.log(`PUTTING PRODUCT: ID ${req.params.id}`)
         const products = await readProducts()
         const foundIndex = products.findIndex((obj) => obj._id === req.params.id)
         console.log(foundIndex)
@@ -102,14 +102,14 @@ productsRouter.put("/:id", async(req, res, next) => {
     }
 })
 
-// 5. DELETE DELETE http://localhost:3000/products/:id
+// 5. DELETE http://localhost:3001/product/:id
 productsRouter.delete("/:id", async(req, res, next) => {
     try {
-        console.log("DELETING PRODUCT")
+        console.log(`DELETING PRODUCT: ID ${req.params.id}`)
         const products = await readProducts()
         const remainingProducts = products.filter(product => product._id !== req.params.id)
         await writeProduct(remainingProducts)
-        res.status(200).send("PRODUCT DELETED.")
+        res.status(200).send({ _id: req.params.id })
     } catch (error) {
         next(error)
     }

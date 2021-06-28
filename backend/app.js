@@ -1,9 +1,10 @@
-import express from "express"
-import path from 'path'
-import { dirname } from "path"
-import {fileURLToPath} from "url"
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+import createError from "http-errors";
+import express from "express";
+import path from "path";
+import cookieParser from "cookie-parser";
+import logger from "morgan";
+import reviewRouter from "./routes/review/review.js";
+import productRouter from "./routes/product/product.js";
 
 import cors from "cors"
 import cookieParser from "cookie-parser"
@@ -23,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/api/review', reviewRouter)
 app.use('/api/product', productRouter)
-
+app.use('/api/products', categoriesRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   res.status(404).send( { error :"not found" } )
