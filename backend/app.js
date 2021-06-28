@@ -5,20 +5,24 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import reviewRouter from "./routes/review/review.js";
 import productRouter from "./routes/product/product.js";
+import categoriesRouter from "./routes/product/category.js";
+import bodyParser from "body-parser"
 
 import listEndpoints from "express-list-endpoints"
 import cors from "cors"
 const port = 3001
 const app = express();
 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/review', reviewRouter);
 app.use('/api/product', productRouter);
+app.use('/api/products', categoriesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
