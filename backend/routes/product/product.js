@@ -116,30 +116,7 @@ productsRouter.delete("/:id", async(req, res, next) => {
     }
 })
 
-// 4. PUT PRODUCT IMAGE http://localhost:3000/products/:id
-// productsRouter.put("/:id/avatar", async(req, res, next) => {
-//     try {
-//         console.log("PUTTING PRODUCT")
-//         const products = await readProducts()
-//         const foundIndex = products.findIndex((obj) => obj._id === req.params.id)
-//         console.log(foundIndex)
-//         if (foundIndex !== -1) {
-//             let foundObject = products[foundIndex]
-//             console.log(foundObject)
-//             foundObject = { ...foundObject, ...req.body, _id : req.params.id, updatedAt: new Date(), }
-//             products[foundIndex] = foundObject
-//             await writeProduct(products)
-//             res.send(foundObject)
-//         } else {
-//             next(createError(404, `Product with id ${req.params.userId} not found!`))
-//         }
-//     } catch (error) {
-//         next(error)
-//     }
-// })
-
-
-productsRouter.put(
+productsRouter.post(
     "/:id/imageUrl",
     parseFile.single("imageUrl"),
     uploadFile,
@@ -161,7 +138,6 @@ productsRouter.put(
         } else {
             next(createError(404, `Product with id ${req.params.id} not found!`))
         }
-
     } catch (error) {
         next(error)
     }

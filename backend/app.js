@@ -1,6 +1,11 @@
 import createError from "http-errors";
 import express from "express";
-import path from "path";
+import path from 'path';
+import { dirname } from "path"
+import {fileURLToPath} from "url";
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename);
+
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import reviewRouter from "./routes/review/review.js";
@@ -8,6 +13,7 @@ import productRouter from "./routes/product/product.js";
 
 import listEndpoints from "express-list-endpoints"
 import cors from "cors"
+
 const port = 3001
 const app = express();
 
@@ -15,7 +21,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-//app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/review', reviewRouter);
 app.use('/api/product', productRouter);
